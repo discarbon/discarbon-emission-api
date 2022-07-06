@@ -146,12 +146,12 @@ def calculate_carbon_emission(flight_distance: float, travel_class: PlaneTravelC
 
 def single_emission_calc(em: dict, flight_distance: float, travel_class: PlaneTravelClasses):
     emission = 0
-    d = flight_distance + em['DC'];
+    d = flight_distance + em['DC']
     emission = ( ((em['a'] * d * d + em['b'] * d + em['c']) / (em['S'] * em['PLF'])) * (1 - em['CF']) *
                  em['CW'][travel_class] * (em['EF'] * em['M'] + em['P']) + em['AF'] * d + em['A'] )
     emission /= 1000  # from kg to tonnes
     return emission
 
 if __name__ == "__main__":
-   response = calculate_emission("ZRH", "LAX",PlaneTravelClasses.economy)
-   print(response)
+    resp = calculate_emission("ZRH", "LAX",PlaneTravelClasses.economy)
+    print(resp)
