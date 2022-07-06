@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-import app.emissions as emissions
+import app.plane_emissions as plane_emissions
 
 description = """disCarbon's carbon emission API currently allows clients to request estimated emissions for plane travel."""
 
@@ -18,6 +18,9 @@ emission_api = FastAPI(
 )
 
 @emission_api.get("/emissions/travel/planeByIATA/{from_airport}/{to_airport}/{travel_class}")
-async def plane_emissions_by_iata(from_airport: str, to_airport: str, travel_class: emissions.PlaneTravelClasses):
-    tco2 = emissions.flight_emission(from_airport, to_airport, travel_class)
-    return {"emissions": tco2}
+async def plane_emissions_by_iata(
+                from_airport: plane_emissions.IATACodes,
+                to_airport: plane_emissions.IATACodes,
+                travel_class: plane_emissions.PlaneTravelClasses):
+    response = plane_emissions.calculate_emission(from_airport, to_airport, travel_class)
+    return response
