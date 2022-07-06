@@ -151,3 +151,7 @@ def single_emission_calc(em: dict, flight_distance: float, travel_class: PlaneTr
                  em['CW'][travel_class] * (em['EF'] * em['M'] + em['P']) + em['AF'] * d + em['A'] )
     emission /= 1000  # from kg to tonnes
     return emission
+
+if __name__ == "__main__":
+   response = calculate_emission("ZRH", "LAX",PlaneTravelClasses.economy)
+   print(response)
