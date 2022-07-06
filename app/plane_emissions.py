@@ -65,7 +65,7 @@ def calculate_geodesic_distance(from_location, to_location):
         math.radians(to_location.iloc[0]["longitude_deg"])
         );
 
-    delta_lambda = math.radians(to_coord.lon - from_coord.lon)
+    delta_lambda = to_coord.lon - from_coord.lon
 
     A = (math.cos(to_coord.lat) * math.sin(delta_lambda))**2
     B = (math.cos(from_coord.lat) * math.sin(to_coord.lat) -
