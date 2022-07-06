@@ -37,7 +37,7 @@ def calculate_emission(from_airport, to_airport, travel_class):
     response = {
         'from_airport': from_airport,
         'to_airport': to_airport,
-        'flight_distance': flight_distance, 
+        'flight_distance': flight_distance,
         'emission': emission
         }
     return response
@@ -59,20 +59,20 @@ def calculate_geodesic_distance(from_location, to_location):
     from_coord = Coord(
         math.radians(from_location.iloc[0]["latitude_deg"]),
         math.radians(from_location.iloc[0]["longitude_deg"])
-        );
+        )
     to_coord = Coord(
         math.radians(to_location.iloc[0]["latitude_deg"]),
         math.radians(to_location.iloc[0]["longitude_deg"])
-        );
+        )
 
     delta_lambda = to_coord.lon - from_coord.lon
 
     A = (math.cos(to_coord.lat) * math.sin(delta_lambda))**2
     B = (math.cos(from_coord.lat) * math.sin(to_coord.lat) -
-         math.sin(from_coord.lat) * math.cos(to_coord.lat) * 
+         math.sin(from_coord.lat) * math.cos(to_coord.lat) *
          math.cos(delta_lambda))**2
     C = (math.sin(from_coord.lat) * math.sin(to_coord.lat) +
-         math.cos(from_coord.lat) * math.cos(to_coord.lat) * 
+         math.cos(from_coord.lat) * math.cos(to_coord.lat) *
          math.cos(delta_lambda))
 
     # Vyncenty formula
