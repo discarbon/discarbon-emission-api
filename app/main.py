@@ -28,11 +28,5 @@ async def plane_emissions_by_iata(
 
 @emission_api.get("/emissions/travel/planeByCity/{from_city}/{to_city}/{travel_class}")
 async def plane_emissions_by_city(from_city, to_city, travel_class: plane_emissions.PlaneTravelClasses):
-    # response = plane_emissions.calculate_emission_from_city(from_city, to_city, travel_class)
-    response = {
-        'from_airport': from_city,
-        'to_airport': to_city,
-        'flight_distance': 345,
-        'emission': 123
-        }
+    response = plane_emissions.calculate_emission_from_city(from_city, to_city, travel_class)
     return response
