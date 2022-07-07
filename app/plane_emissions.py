@@ -7,6 +7,7 @@ from enum import Enum
 from collections import namedtuple
 import pandas as pd
 
+Coord = namedtuple('Coord', 'lat lon')
 
 def load_airport_data(filename):
     airports = pd.read_csv(filename, header=0)
@@ -49,20 +50,28 @@ def calculate_flight_distance(from_airport, to_airport):
     from_location = AIRPORTS.query(f"iata_code == '{from_airport}'")[["latitude_deg", "longitude_deg"]]
     to_location = AIRPORTS.query(f"iata_code == '{to_airport}'")[["latitude_deg", "longitude_deg"]]
 
-    return calculate_geodesic_distance(from_location, to_location)
+    from_coord = Coord(
+        from_location.iloc[0]["latitude_deg"],
+        from_location.iloc[0]["longitude_deg"]
+        )
+    to_coord = Coord(
+        to_location.iloc[0]["latitude_deg"],
+        to_location.iloc[0]["longitude_deg"]
+        )
+
+    return calculate_geodesic_distance(from_coord, to_coord)
 
 def calculate_geodesic_distance(from_location, to_location):
     # Consider using geopy; https://stackoverflow.com/a/43211266
     earth_radius = 6371.009  # km mean earth radius (spherical approximation)
 
-    Coord = namedtuple('Coord', 'lat lon')
     from_coord = Coord(
-        math.radians(from_location.iloc[0]["latitude_deg"]),
-        math.radians(from_location.iloc[0]["longitude_deg"])
+        math.radians(from_location.lat),
+        math.radians(from_location.lon)
         )
     to_coord = Coord(
-        math.radians(to_location.iloc[0]["latitude_deg"]),
-        math.radians(to_location.iloc[0]["longitude_deg"])
+        math.radians(to_location.lat),
+        math.radians(to_location.lon)
         )
 
     delta_lambda = to_coord.lon - from_coord.lon
