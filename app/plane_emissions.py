@@ -48,17 +48,13 @@ def calculate_emission_from_city(from_city, to_city, travel_class):
     geolocator = Nominatim(user_agent="MyApp")
     from_location = geolocator.geocode(from_city)
     to_location = geolocator.geocode(to_city)
-    print(from_location)
-    print(from_location.latitude, from_location.longitude)
-    print(to_location)
-    print(to_location.latitude, to_location.longitude)
     from_coord = Coord(from_location.latitude, from_location.longitude)
     to_coord = Coord(to_location.latitude, to_location.longitude)
     flight_distance = calculate_geodesic_distance(from_coord, to_coord)
     emission = calculate_carbon_emission(flight_distance, travel_class)
     response = {
-        'from_airport': from_city,
-        'to_airport': to_city,
+        'from_location': repr(from_location.address),
+        'to_location': repr(to_location.address),
         'flight_distance': flight_distance,
         'emission': emission
         }
