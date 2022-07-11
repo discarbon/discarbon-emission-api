@@ -24,6 +24,29 @@ emission_api = FastAPI(
 )
 
 
+@emission_api.get("/")
+async def root():
+    """
+    Return a helpful docstring pointing to the API's Swagger documentation if no
+    valid endpoint is provided.
+    """
+    return {
+        "message": (
+            """Welcome to the disCarbon flight and event emission API. Documentation is """
+            """available at https://api.discarbon.earth/docs"""
+        )
+    }
+
+
+# If we have dependencies on other services, consider https://github.com/Kludex/fastapi-health
+@emission_api.get("/health")
+async def app_health():
+    """
+    Basic health check to verify the API is still running.
+    """
+    return {"alive": True}
+
+
 @emission_api.get("/emissions/travel/planeByIATA/{from_airport}/{to_airport}/{travel_class}")
 async def plane_emissions_by_iata(
     from_airport: plane_emissions.IATACodes,
