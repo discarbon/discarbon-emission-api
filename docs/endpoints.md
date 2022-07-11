@@ -7,7 +7,7 @@ The API will be available at:
 
 - `version`: The version of the API to use, e.g. `v1.1`
 
-TODO: We could consider versioning by component, i.e., 
+TODO: We could consider versioning by component, i.e.,
 `https://api.discarbon.earth/emissions/travel/{version}/`
 `https://api.discarbon.earth/emissions/event/{version}/`
 
@@ -21,7 +21,7 @@ Retrieve an emission estimate for a single person travelling by plane.
 
 - `from`: The IATA code of the departure airport.
 - `to`: The IATA code of the destination airport.
-- `class`: The class travelled by the passenger. Must be one of `["economy", "business", "first"]`.  
+- `class`: The class travelled by the passenger. Must be one of `["economy", "business", "first"]`.
 
 ### GET `travel/planeByCoordinates/{fromX}/{fromY}/{toX}/{toY}/{class}`
 
