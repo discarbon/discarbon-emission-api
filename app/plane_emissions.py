@@ -18,8 +18,9 @@ Coord = namedtuple("Coord", "lat lon")
 def load_airport_data(filename):
     airports = pd.read_csv(filename, header=0)
     airports = airports[airports["iata_code"].notnull()]
-    airports = airports.query(
-        "(type in ['medium_airport', 'large_airport']) and (scheduled_service == 'yes')"
+    airports.query(
+        "(type in ['medium_airport', 'large_airport']) and (scheduled_service == 'yes')",
+        inplace=True,
     )
     return airports
 
