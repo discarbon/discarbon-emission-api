@@ -166,10 +166,10 @@ def get_coords_from_iata(airport_iata_code):
 
 
 def calculate_emission_from_iata(
-    from_airport: IATACodes, to_airport: IATACodes, travel_class: PlaneTravelClasses
+    from_iata: IATACodes, to_iata: IATACodes, travel_class: PlaneTravelClasses
 ):
-    from_coords = get_coords_from_iata(from_airport)
-    to_coords = get_coords_from_iata(to_airport)
+    from_coords = get_coords_from_iata(from_iata)
+    to_coords = get_coords_from_iata(to_iata)
     plane_travel = PlaneTravel(from_coords, to_coords, travel_class)
     flight_distance = plane_travel.calculate_geodesic_distance()
     emission = plane_travel.calculate_carbon_emission()
@@ -177,8 +177,8 @@ def calculate_emission_from_iata(
     from_location = geolocator.reverse(f"{from_coords.lat}, {from_coords.lon}").address
     to_location = geolocator.reverse(f"{to_coords.lat}, {to_coords.lon}").address
     response = {
-        "from_iata": from_airport,
-        "to_iata": to_airport,
+        "from_iata": from_iata,
+        "to_iata": to_iata,
         "from_coords": from_coords,
         "to_coords": to_coords,
         "from_location": from_location,
