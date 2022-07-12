@@ -126,10 +126,12 @@ class PlaneTravel:
         emission = 0
         if self.flight_distance < 1500:
             # short distance
-            return self.single_emission_calc(em_short)
+            self.emission = self.single_emission_calc(em_short)
+            return self.emission
         elif self.flight_distance > 2500:
             # long distance
-            return self.single_emission_calc(em_long)
+            self.emission = self.single_emission_calc(em_long)
+            return self.emission
         else:
             # intermediate distance (interpolation)
             short_emission = self.single_emission_calc(em_short)
