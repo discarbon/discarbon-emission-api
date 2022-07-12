@@ -52,7 +52,7 @@ async def root():
     return {
         "message": (
             """Welcome to the disCarbon flight and event emission API. Documentation is """
-            """available at https://api.discarbon.earth/docs"""
+            """available at https://api.discarbon.earth/latest/docs"""
         )
     }
 
