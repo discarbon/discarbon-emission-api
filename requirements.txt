@@ -3,5 +3,5 @@ fastapi-versioning>=0.10.0,<0.11.0
 geopy==2.2.0
 pandas==1.4.3
 pydantic>=1.2.0,<2.0.0
-requirements==21.3
+packaging==21.3
 uvicorn==0.17.6
