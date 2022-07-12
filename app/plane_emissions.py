@@ -173,8 +173,8 @@ def calculate_emission_from_iata(
     from_coords = get_coords_from_iata(from_iata)
     to_coords = get_coords_from_iata(to_iata)
     plane_travel = PlaneTravel(from_coords, to_coords, travel_class)
-    flight_distance = plane_travel.calculate_geodesic_distance()
-    emission = plane_travel.calculate_carbon_emission()
+    plane_travel.calculate_geodesic_distance()
+    plane_travel.calculate_carbon_emission()
     # complete the response
     from_location = geolocator.reverse(f"{from_coords.lat}, {from_coords.lon}").address
     to_location = geolocator.reverse(f"{to_coords.lat}, {to_coords.lon}").address
@@ -185,17 +185,17 @@ def calculate_emission_from_iata(
         "to_coords": to_coords,
         "from_location": from_location,
         "to_location": to_location,
-        "travel_class": travel_class,
-        "flight_distance": flight_distance,
-        "emission": emission,
+        "travel_class": plane_travel.travel_class,
+        "flight_distance": plane_travel.flight_distance,
+        "emission": plane_travel.emission,
     }
     return response
 
 
 def calculate_emission_from_coordinates(from_coords, to_coords, travel_class):
     plane_travel = PlaneTravel(from_coords, to_coords, travel_class)
-    flight_distance = plane_travel.calculate_geodesic_distance()
-    emission = plane_travel.calculate_carbon_emission()
+    plane_travel.calculate_geodesic_distance()
+    plane_travel.calculate_carbon_emission()
     # complete the response
     from_location = geolocator.reverse(f"{from_coords.lat}, {from_coords.lon}")
     if not from_location:
@@ -214,9 +214,9 @@ def calculate_emission_from_coordinates(from_coords, to_coords, travel_class):
         "to_coords": to_coords,
         "from_location": from_location.address,
         "to_location": to_location.address,
-        "travel_class": travel_class,
-        "flight_distance": flight_distance,
-        "emission": emission,
+        "travel_class": plane_travel.travel_class,
+        "flight_distance": plane_travel.flight_distance,
+        "emission": plane_travel.emission,
     }
     return response
 
@@ -231,16 +231,16 @@ def calculate_emission_from_city(from_city, to_city, travel_class):
     from_coords = Coord(from_location.latitude, from_location.longitude)
     to_coords = Coord(to_location.latitude, to_location.longitude)
     plane_travel = PlaneTravel(from_coords, to_coords, travel_class)
-    flight_distance = plane_travel.calculate_geodesic_distance()
-    emission = plane_travel.calculate_carbon_emission()
+    plane_travel.calculate_geodesic_distance()
+    plane_travel.calculate_carbon_emission()
     response = {
         "from_coords": from_coords,
         "to_coords": to_coords,
         "from_location": from_location.address,
         "to_location": to_location.address,
-        "travel_class": travel_class,
-        "flight_distance": flight_distance,
-        "emission": emission,
+        "travel_class": plane_travel.travel_class,
+        "flight_distance": plane_travel.flight_distance,
+        "emission": plane_travel.emission,
     }
     return response
 
