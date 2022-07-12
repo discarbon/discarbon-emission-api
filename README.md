@@ -43,3 +43,12 @@ The hooks can be ran without running `git commit` via:
 pre-commit run --all-files
 ```
 The VS Code settings for these tools in `.vscode/settings.json` should help the pre-commit hooks pass.
+
+### Testing
+
+Run the tests locally:
+```
+pip install -r requirements_dev.txt
+pip install -e .
+pytest
+```
