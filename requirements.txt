@@ -1,4 +1,5 @@
-fastapi[all]
-pandas
-uvicorn
-geopy
+fastapi[all]>=0.78.0,<0.79.0
+pandas==1.4.3
+pydantic>=1.2.0,<2.0.0
+uvicorn==0.17.6
+geopy==2.2.0
