@@ -102,6 +102,7 @@ async def plane_emissions_by_iata(
 @emission_api.get(
     "/emissions/travel/planeByCoordinates/{from_lat}/{from_lon}/{to_lat}/{to_lon}/{travel_class}",
     response_model=plane_emissions.PlaneEmissionResponse,
+    response_model_exclude={"from_iata", "to_iata"},
     tags=["Plane Emissions"],
 )
 async def plane_emissions_by_lat_lon_coordinates(
@@ -138,6 +139,7 @@ async def plane_emissions_by_lat_lon_coordinates(
 @emission_api.get(
     "/emissions/travel/planeByCity/{from_city}/{to_city}/{travel_class}",
     response_model=plane_emissions.PlaneEmissionResponse,
+    response_model_exclude={"from_iata", "to_iata"},
     tags=["Plane Emissions"],
 )
 async def plane_emissions_by_city(
