@@ -156,7 +156,7 @@ class PlaneTravel:
 
 def get_coords_from_iata(airport_iata_code):
     """
-    Get the latitudal and longtidual coordinates for the airport specified by
+    Get the latitudinal and longitudinal coordinates for the airport specified by
     provided IATA code.
     """
     coords = AIRPORTS.query(f"iata_code == '{airport_iata_code}'")[
