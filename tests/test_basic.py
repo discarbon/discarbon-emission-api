@@ -10,7 +10,7 @@ def test_health():
     """
     Test health check endpoint.
     """
-    response = client.get("/health")
+    response = client.get("/latest/health")
     assert response.status_code == 200
     assert response.json() == {"alive": True}
 
@@ -21,7 +21,7 @@ def test_plane_by_iata():
     """
     from_airport = "LAX"
     to_airport = "BOG"
-    endpoint = f"/emissions/travel/planeByIATA/{from_airport}/{to_airport}/economy"
+    endpoint = f"/latest/emissions/travel/planeByIATA/{from_airport}/{to_airport}/economy"
     response = client.get(endpoint)
     assert response.status_code == 200
     response_json = response.json()
@@ -34,7 +34,7 @@ def test_plane_by_iata():
 def test_plane_by_iata_invalid_iata_code():
     from_airport = "LAX"
     to_airport = "ZZZZ"  # invalid
-    endpoint = f"/emissions/travel/planeByIATA/{from_airport}/{to_airport}/economy"
+    endpoint = f"/latest/emissions/travel/planeByIATA/{from_airport}/{to_airport}/economy"
     response = client.get(endpoint)
     assert response.status_code == 422
 
@@ -43,6 +43,6 @@ def test_plane_by_iata_invalid_plane_travel_class_code():
     from_airport = "LAX"
     to_airport = "BOG"
     travel_class = "luxury"
-    endpoint = f"/emissions/travel/planeByIATA/{from_airport}/{to_airport}/{travel_class}"
+    endpoint = f"/latest/emissions/travel/planeByIATA/{from_airport}/{to_airport}/{travel_class}"
     response = client.get(endpoint)
     assert response.status_code == 422
