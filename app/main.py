@@ -1,8 +1,13 @@
 from textwrap import dedent
 
 from fastapi import FastAPI
+from fastapi_versioning import VersionedFastAPI
+from packaging.version import parse
 
 import app.plane_emissions as plane_emissions
+
+default_version_string = "0.1"
+default_version = parse(default_version_string).release
 
 description = dedent(
     """disCarbon's carbon emission estimation API.
@@ -18,19 +23,23 @@ tags_metadata = [
     },
 ]
 
-emission_api = FastAPI(
-    title="disCarbon Carbon Emission API",
-    description=description,
-    version="0.0.1",
-    contact={
+fastapi_args = {
+    "description": description,
+    "version": 0.1,
+    "contact": {
         "name": "dan",
         "email": "danceratopz@gmail.com",
     },
-    license_info={
+    "license_info": {
         "name": "Apache 2.0",
         "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
     },
-    openapi_tags=tags_metadata,
+    "openapi_tags": tags_metadata,
+}
+
+emission_api = FastAPI(
+    title="disCarbon Carbon Emission API",
+    **fastapi_args,
 )
 
 
@@ -85,15 +94,16 @@ async def plane_emissions_by_iata(
 
     The emission returned is for a one-way trip.
 
-    Example: <a href="https://api.discarbon.earth/emissions/travel/planeByIATA/LAX/BOG/economy">
+    Example: <a href=
+    "https://api.discarbon.earth/latest/emissions/travel/planeByIATA/LAX/BOG/economy">
     LAX-BOG</a> - <br>
-    <a href="https://api.discarbon.earth/emissions/travel/planeByIATA/LAX/BOG/economy">
-    https://api.discarbon.earth/emissions/travel/planeByIATA/LAX/BOG/economy</a>
+    <a href="https://api.discarbon.earth/latest/emissions/travel/planeByIATA/LAX/BOG/economy">
+    https://api.discarbon.earth/latest/emissions/travel/planeByIATA/LAX/BOG/economy</a>
 
     See also: <br>
     <a href=
-    "https://api.discarbon.earth/docs#/Plane%20Emissions/supported_iata_codes_emissions_travel_supportedIATACodes_get">
-    https://api.discarbon.earth/docs#/Plane%20Emissions/supported_iata_codes_emissions_travel_supportedIATACodes_get</a>
+    "https://api.discarbon.earth/latest/docs#/Plane%20Emissions/supported_iata_codes_emissions_travel_supportedIATACodes_get">
+    https://api.discarbon.earth/latest/docs#/Plane%20Emissions/supported_iata_codes_emissions_travel_supportedIATACodes_get</a>
     """
     response = plane_emissions.calculate_emission_from_iata(from_airport, to_airport, travel_class)
     return response
@@ -124,8 +134,8 @@ async def plane_emissions_by_lat_lon_coordinates(
 
     Example, from (57.15,2.11) to (47.37,8.54) (LAX-BOG) - <br>
     <a href=
-    "https://api.discarbon.earth/emissions/travel/planeByCoordinates/33.94/-118.42/4.70/-74.15/economy">
-    https://api.discarbon.earth/emissions/travel/planeByCoordinates/33.94/-118.42/4.70/-74.15/economy
+    "https://api.discarbon.earth/latest/emissions/travel/planeByCoordinates/33.94/-118.42/4.70/-74.15/economy">
+    https://api.discarbon.earth/latest/emissions/travel/planeByCoordinates/33.94/-118.42/4.70/-74.15/economy
     </a>
     """
     from_coords = plane_emissions.Coord(from_lat, from_lon)
@@ -157,9 +167,19 @@ async def plane_emissions_by_city(
     Example: From "Los Angeles International Airport" to "El Dorado International Airport"
     (LAX-BOG) <br>
     <a href=
-    "https://api.discarbon.earth/emissions/travel/planeByCity/Los%20Angeles%20International%20Airport/El%20Dorado%20International%20Airport/economy">
-    https://api.discarbon.earth/emissions/travel/planeByCity/Los%20Angeles%20International%20Airport/El%20Dorado%20International%20Airport/economy
+    "https://api.discarbon.earth/latest/emissions/travel/planeByCity/Los%20Angeles%20International%20Airport/El%20Dorado%20International%20Airport/economy">
+    https://api.discarbon.earth/latest/emissions/travel/planeByCity/Los%20Angeles%20International%20Airport/El%20Dorado%20International%20Airport/economy
     </a>
     """
     response = plane_emissions.calculate_emission_from_city(from_city, to_city, travel_class)
     return response
+
+
+emission_api = VersionedFastAPI(
+    emission_api,
+    version_format="{major}.{minor}",
+    prefix_format="/v{major}.{minor}",
+    default_version=tuple(default_version),
+    enable_latest=True,
+    **fastapi_args,
+)
