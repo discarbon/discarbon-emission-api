@@ -92,8 +92,8 @@ async def plane_emissions_by_iata(
 
     See also: <br>
     <a href=
-    "https://api.discarbon.api/docs#/supported_iata_codes_emissions_travel_supportedIATACodes_get">
-    /emissions/travel/supportedIATACodes</a>
+    "https://api.discarbon.earth/docs#/Plane%20Emissions/supported_iata_codes_emissions_travel_supportedIATACodes_get">
+    https://api.discarbon.earth/docs#/Plane%20Emissions/supported_iata_codes_emissions_travel_supportedIATACodes_get</a>
     """
     response = plane_emissions.calculate_emission_from_iata(from_airport, to_airport, travel_class)
     return response
