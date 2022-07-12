@@ -25,8 +25,8 @@ def test_plane_by_iata():
     response = client.get(endpoint)
     assert response.status_code == 200
     response_json = response.json()
-    assert response_json["from_airport"] == from_airport
-    assert response_json["to_airport"] == to_airport
+    assert response_json["from_iata"] == from_airport
+    assert response_json["to_iata"] == to_airport
     assert response_json["emission"] == pytest.approx(0.908, 0.05)
     assert response_json["flight_distance"] == pytest.approx(5600, 1)
 
