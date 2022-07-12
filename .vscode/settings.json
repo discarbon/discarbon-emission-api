@@ -24,10 +24,12 @@
     "Autoformatting",
     "discarbon",
     "fastapi",
+    "geolocator",
     "isort",
     "pyenv",
     "pytest",
     "uvicorn",
-    "virtualenv"
+    "virtualenv",
+    "Vyncenty's"
   ]
 }
