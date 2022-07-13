@@ -5,6 +5,8 @@ from app.main import emission_api
 
 client = TestClient(emission_api)
 
+pytestmark = pytest.mark.precommit
+
 
 def test_health():
     """

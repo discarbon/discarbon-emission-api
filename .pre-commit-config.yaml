@@ -19,5 +19,14 @@ repos:
     hooks:
       - id: flake8
 
+  - repo: local
+    hooks:
+      - id: tests
+        name: pytest -m precommit
+        entry: pytest -v -m precommit
+        language: system
+        types: [python]
+        stages: [push]
+
 default_language_version:
   python: python3.10

@@ -38,10 +38,15 @@ Use of `pre-commit` is not a strict requirement, but is highly recommended as th
 pip install -r requirements_dev.txt
 pre-commit install
 ```
-The hooks can be ran without running `git commit` via:
+The commit hooks can be ran without running `git commit` via:
 ```shell
 pre-commit run --all-files
 ```
+Upon `git push` pytest additionally runs some smoke tests to ensure the app can be started:
+```
+pre-commit run --all-files --hook-stage=push
+```
+
 The VS Code settings for these tools in `.vscode/settings.json` should help the pre-commit hooks pass.
 
 ### Testing
