@@ -25,11 +25,24 @@ def load_airport_data(filename):
     return airports
 
 
+# Do this lengthier operation once upon app initialization
 AIRPORTS = load_airport_data("resources/airports.csv")
-IATA_CODES_LIST = sorted([str(iata_code) for iata_code in AIRPORTS["iata_code"]])
-# Note: This takes a few seconds.
-IATACodes = Enum("IATACodes", dict(zip(IATA_CODES_LIST, IATA_CODES_LIST)), type=str)
 
+
+def create_airport_name_iata_lookup():
+    lookup_data = AIRPORTS.filter(["name", "iata_code"], axis=1)
+    lookup_data.sort_values(by="name", inplace=True)
+    airport_name_iata_lookup = {
+        airport_name: iata_code
+        for airport_name, iata_code in zip(lookup_data["name"], lookup_data["iata_code"])
+    }
+    return airport_name_iata_lookup
+
+
+# Another lengthier operation
+AIRPORT_NAME_IATA_LOOKUP = create_airport_name_iata_lookup()
+IATA_CODES_LIST = sorted([str(iata_code) for iata_code in AIRPORTS["iata_code"]])
+IATACodes = Enum("IATACodes", dict(zip(IATA_CODES_LIST, IATA_CODES_LIST)), type=str)
 geolocator = Nominatim(user_agent="MyApp")
 
 

@@ -79,6 +79,18 @@ async def supported_iata_codes():
 
 
 @emission_api.get(
+    "/emissions/travel/supportedAirportNamesWithIATACodes",
+    tags=["Plane Emissions"],
+)
+async def supported_airport_names_with_iata_codes():
+    """
+    Return a lookup of supported airport names and their corresponding IATA codes.
+    """
+    response = {"airport_names_with_iata_codes": plane_emissions.AIRPORT_NAME_IATA_LOOKUP}
+    return response
+
+
+@emission_api.get(
     "/emissions/travel/planeByIATA/{from_airport}/{to_airport}/{travel_class}",
     response_model=plane_emissions.PlaneEmissionResponse,
     tags=["Plane Emissions"],
@@ -179,7 +191,7 @@ emission_api = VersionedFastAPI(
     emission_api,
     version_format="{major}.{minor}",
     prefix_format="/v{major}.{minor}",
-    default_version=tuple(default_version),
+    default_version=default_version,  # type: ignore
     enable_latest=True,
     **fastapi_args,
 )
