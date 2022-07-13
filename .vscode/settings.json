@@ -21,6 +21,7 @@
   "mypy.configFile": "./mypy.ini",
   "mypy.runUsingActiveInterpreter": true,
   "cSpell.words": [
+    "argsort",
     "Autoformatting",
     "discarbon",
     "fastapi",
