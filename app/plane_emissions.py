@@ -31,7 +31,10 @@ AIRPORTS = load_airport_data("resources/airports.csv")
 
 def create_airport_name_iata_lookup():
     lookup_data = AIRPORTS.filter(["name", "iata_code"], axis=1)
-    lookup_data.sort_values(by="name", inplace=True)
+    # This does not sort accents very well:
+    # lookup_data.sort_values(by="name", inplace=True)
+    # Better, but not perfect
+    lookup_data = lookup_data.iloc[lookup_data["name"].str.normalize("NFKD").argsort()]
     airport_name_iata_lookup = {
         airport_name: iata_code
         for airport_name, iata_code in zip(lookup_data["name"], lookup_data["iata_code"])
