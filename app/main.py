@@ -6,6 +6,10 @@ from packaging.version import parse
 
 import app.plane_emissions as plane_emissions
 
+# TODO: Automate versioning. From latest tag?
+# The tagged and deployed version, including patch.
+full_version_string = "0.1.0"
+# The version used in URL endpoints as applied by VersionedFastAPI by default.
 default_version_string = "0.1"
 default_version = parse(default_version_string).release
 
@@ -64,6 +68,14 @@ async def app_health():
     Basic health check to verify the API is still running.
     """
     return {"alive": True}
+
+
+@emission_api.get("/version", tags=["Auxiliary"])
+async def app_version():
+    """
+    Return the full version of the API, including patch version.
+    """
+    return {"version": full_version_string}
 
 
 @emission_api.get(
