@@ -23,6 +23,7 @@ repos:
     hooks:
       - id: tests
         name: pytest -m precommit
+        always_run: true
         entry: pytest -v -m precommit
         language: system
         types: [python]
